@@ -1,24 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
 <meta charset="utf-8">
-<title>OCR 整形ツール</title>
+<title>方言データベース作業用</title>
 
-<h3>OCR テキスト整形</h3>
+<a href="Nihon_no_kotoba.html">日本のことばシリーズ作業用</a>
 
-<textarea id="input" rows="12" style="width:100%;"></textarea>
-
-<br><br>
-<button onclick="convert()">変換</button>
-<br><br>
-
-<textarea id="output" rows="12" style="width:100%;"></textarea>
-
-<script>
-function convert() {
-  let text = document.getElementById("input").value;
-  text = text.replace(/\r?\n/g, "");
-  text = text.replace(/■/g, "\n■");
-  document.getElementById("output").value = text.trim();
-}
-</script>
 </html>
