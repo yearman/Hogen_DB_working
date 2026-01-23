@@ -27,12 +27,12 @@ function convert() {
 }
 
 async function copyOut() {
-  const t = document.getElementById("out").value;
+  const t = document.getElementById("output").value;
   try {
     await navigator.clipboard.writeText(t);
     alert("コピーしました");
   } catch (e) {
-    const out = document.getElementById("out");
+    const out = document.getElementById("output");
     out.focus();
     out.select();
     document.execCommand("copy");
@@ -41,8 +41,8 @@ async function copyOut() {
 }
 
 function clearAll() {
-  document.getElementById("inp").value = "";
-  document.getElementById("out").value = "";
+  document.getElementById("input").value = "";
+  document.getElementById("output").value = "";
 }
 </script>
 </html>
