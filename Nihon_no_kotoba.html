@@ -7,10 +7,15 @@
 
 <textarea id="input" rows="12" style="width:100%;"></textarea>
 
-<br><br>
-<button onclick="convert()">変換</button>
-<br><br>
 
+  <div class="controls">
+    <button onclick="convert()">変換</button>
+    <button onclick="copyOut()">出力をコピー</button>
+    <button onclick="clearAll()">クリア</button>
+  </div>
+
+
+  
 <textarea id="output" rows="12" style="width:100%;"></textarea>
 
 <script>
@@ -19,6 +24,25 @@ function convert() {
   text = text.replace(/\r?\n/g, "");
   text = text.replace(/■/g, "\n■");
   document.getElementById("output").value = text.trim();
+}
+
+async function copyOut() {
+  const t = document.getElementById("out").value;
+  try {
+    await navigator.clipboard.writeText(t);
+    alert("コピーしました");
+  } catch (e) {
+    const out = document.getElementById("out");
+    out.focus();
+    out.select();
+    document.execCommand("copy");
+    alert("コピーしました（互換モード）");
+  }
+}
+
+function clearAll() {
+  document.getElementById("inp").value = "";
+  document.getElementById("out").value = "";
 }
 </script>
 </html>
