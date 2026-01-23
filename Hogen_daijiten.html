@@ -19,19 +19,9 @@
 
   <h2>方言大辞典作業用</h2>
 
-  <div class="box hint">
-    <div><strong>A: 指定どおり</strong> … ご提示の 1→2→3→4→5 をそのまま実行。</div>
-    <div><strong>B: 意図実現（おすすめ）</strong> … ②の「動/形を保持して墨開きを入れる」を壊さずに後段処理する形に調整。</div>
-    <div style="margin-top:8px;">
-      GitHub Pages で動かす前提。データはサーバに送らず、ブラウザ内だけで処理します。
-    </div>
-  </div>
-
   <div class="controls">
-    <button onclick="runAsSpecified()">A: 指定どおりで変換</button>
-    <button onclick="runRecommended()">B: 意図実現で変換</button>
+    <button onclick="runAsSpecified()">指定どおりで変換</button>
     <button onclick="copyOut()">出力をコピー</button>
-    <button onclick="swap()">入力⇄出力を入れ替え</button>
     <button onclick="clearAll()">クリア</button>
   </div>
 
@@ -69,29 +59,6 @@ function runAsSpecified() {
   document.getElementById("out").value = s;
 }
 
-function runRecommended() {
-  let s = document.getElementById("inp").value;
-
-  // 1) 削除：全角の角括弧(］) / 半角閉じダブルクオテーション(”) / 半角スペース
-  s = s.replace(/[］” ]/g, "");
-
-  // 2) 「】」直後の「【動】」「【形】」だけを、タブ + 中身 + 「【」にする
-  //    例: ...】［xxx］【動】... → ...\t動【...
-  //    例: ...】［xxx］【形】... → ...\t形【...
-  s = s.replace(/】【([動形])】/g, "\t$1【");
-
-  // ここから先は「】や【・を区切りにしたい」処理。
-  // ③→④の連続は（③で増やした】も④で全部タブ化するため）効果が薄いので、
-  // 「区切りをタブ化」に一本化します（意図の実用面重視）。
-  //
-  // 3/4 相当：】をタブ化
-  s = s.replace(/】/g, "\t");
-
-  // 5) 【 と ・ をタブ化
-  s = s.replace(/[【・]/g, "\t");
-
-  document.getElementById("out").value = s;
-}
 
 async function copyOut() {
   const t = document.getElementById("out").value;
@@ -105,14 +72,6 @@ async function copyOut() {
     document.execCommand("copy");
     alert("コピーしました（互換モード）");
   }
-}
-
-function swap() {
-  const inp = document.getElementById("inp");
-  const out = document.getElementById("out");
-  const tmp = inp.value;
-  inp.value = out.value;
-  out.value = tmp;
 }
 
 function clearAll() {
