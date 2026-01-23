@@ -44,7 +44,6 @@ function runAsSpecified() {
   s = s.replace(/[］” ]/g, "");
 
   // 2) 検索: 】【([動形])】 置換: \t$1【
-  // ※JSでは \t を実タブにする
   s = s.replace(/】【([動形])】/g, "\t$1【");
 
   // 3) 検索: 】 置換: 】】
@@ -56,9 +55,12 @@ function runAsSpecified() {
   // 5) 検索: [【・] 置換: \t
   s = s.replace(/[【・]/g, "\t");
 
+  // 6) 空行（空白・タブのみの行を含む）を削除
+  s = s.replace(/^\s*$(?:\r?\n)?/gm, "");
+
   document.getElementById("out").value = s;
 }
-
+  
 
 async function copyOut() {
   const t = document.getElementById("out").value;
